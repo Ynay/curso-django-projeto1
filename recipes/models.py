@@ -5,13 +5,15 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-
+#Tabela de Category( categorias )
 class Category(models.Model):
     name = models.CharField(max_length=65)
-    
+
+    def __str__(self):#Função usada para retornar o nome do dados cadastrado no BD na page Admin do Django
+        return self.name
 
 
-
+# Tabela de Recipe( Receitas ) 
 class Recipe(models.Model):
     title = models.CharField(max_length=65)
     description = models.CharField(max_length=165)
@@ -26,12 +28,17 @@ class Recipe(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    # Chave Primaria Pra ligar duas tabela 
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True
     )
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
     )
+
+
+    def __str__(self):#Função usada para retorna nome do titulo na page admin do Django
+        return self.title
 
 
     
