@@ -14,13 +14,13 @@ def home(request):
 
 
 def category(request, category_id):
-    recipes = get_list_or_404(              # Usado para fazer uma busca em uma lista se caso não for encontrado algo ele irá retornar um erro 404
+    recipes = get_list_or_404(              # Usado para fazer uma busca em uma lista se caso não for encontrado algo ele irá retornar um erro 404 # noqa: E501
         Recipe.objects.filter(              # Filtragem dos dados pelos campos
-            category__id=category_id,       # Filtragem pelo campo id dos Objects
+            category__id=category_id,       # Filtragem pelo campo id dos Objects # noqa: E501
 
             # Filtragem pelo campo publicado se for igual a verdadeiro(TRUE)
             is_published=True,
-        ).order_by('-id')                   # Ordanando os dados filtrados pelo ID pela ordem descrescente
+        ).order_by('-id')                   # Ordanando os dados filtrados pelo ID pela ordem descrescente # noqa: E501
     )
 
     return render(request, 'recipes/pages/category.html', context={
@@ -30,6 +30,7 @@ def category(request, category_id):
 
 
 def recipe(request, id):
+    # O get_object_or_404 vai fazer a filtragem pelos campos passados em seus parametros. # noqa: E501
     recipe = get_object_or_404(Recipe, pk=id, is_published=True)
 
     return render(request, 'recipes/pages/recipe-view.html', context={
